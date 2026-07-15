@@ -148,3 +148,6 @@ vite.config.ts.timestamp-*
 *.sqlite-wal
 
 **/.deobfuscate-javascript
+
+.pmd/
+.pmdrc

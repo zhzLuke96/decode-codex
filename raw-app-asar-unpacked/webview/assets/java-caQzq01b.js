@@ -1,0 +1,3 @@
+import { n as e, t } from "./java-CDWuGfMR.js";
+t();
+export { e as default };

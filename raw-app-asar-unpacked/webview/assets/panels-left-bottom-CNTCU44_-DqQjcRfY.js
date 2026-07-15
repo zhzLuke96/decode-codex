@@ -1,0 +1,3 @@
+import { n as e, t } from "./panels-left-bottom-CNTCU44_-iAWmrQVl.js";
+e();
+export { t as default };

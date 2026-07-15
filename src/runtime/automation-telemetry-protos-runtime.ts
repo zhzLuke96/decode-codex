@@ -1,0 +1,65 @@
+// Restored from ref/webview/assets/app-initial~app-main~automations-page-Bc0ZtIBr.js
+// Automation analytics protobuf enum aliases and event descriptors.
+import {
+  automationKindValues,
+  automationStatusValues,
+  executionEnvironmentValues,
+  reasoningEffortValues,
+  scheduleFrequencyValues,
+} from "./automation-schedule-runtime";
+import { isAutomationReasoningEffort } from "../automation/automation-schedule/model-defaults";
+
+export const AutomationActionProto = {
+  CODEX_AUTOMATION_ACTION_UNSPECIFIED:
+    "CODEX_AUTOMATION_ACTION_UNSPECIFIED",
+  CODEX_AUTOMATION_ACTION_CREATED: "CODEX_AUTOMATION_ACTION_CREATED",
+  CODEX_AUTOMATION_ACTION_UPDATED: "CODEX_AUTOMATION_ACTION_UPDATED",
+  CODEX_AUTOMATION_ACTION_DELETED: "CODEX_AUTOMATION_ACTION_DELETED",
+  CODEX_AUTOMATION_ACTION_RUN_NOW: "CODEX_AUTOMATION_ACTION_RUN_NOW",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const AutomationFailureReasonProto = {
+  CODEX_AUTOMATION_FAILURE_REASON_UNSPECIFIED:
+    "CODEX_AUTOMATION_FAILURE_REASON_UNSPECIFIED",
+  CODEX_AUTOMATION_FAILURE_REASON_HOST_ERROR:
+    "CODEX_AUTOMATION_FAILURE_REASON_HOST_ERROR",
+  CODEX_AUTOMATION_FAILURE_REASON_MISSING_AUTOMATION:
+    "CODEX_AUTOMATION_FAILURE_REASON_MISSING_AUTOMATION",
+  CODEX_AUTOMATION_FAILURE_REASON_INVALID_ID:
+    "CODEX_AUTOMATION_FAILURE_REASON_INVALID_ID",
+  CODEX_AUTOMATION_FAILURE_REASON_STORAGE_UNAVAILABLE:
+    "CODEX_AUTOMATION_FAILURE_REASON_STORAGE_UNAVAILABLE",
+  CODEX_AUTOMATION_FAILURE_REASON_STATE_CLEANUP_FAILED:
+    "CODEX_AUTOMATION_FAILURE_REASON_STATE_CLEANUP_FAILED",
+  CODEX_AUTOMATION_FAILURE_REASON_REMOVE_FAILED:
+    "CODEX_AUTOMATION_FAILURE_REASON_REMOVE_FAILED",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const AutomationKindProto = automationKindValues;
+
+export const AutomationSourceProto = {
+  CODEX_AUTOMATION_SOURCE_UNSPECIFIED:
+    "CODEX_AUTOMATION_SOURCE_UNSPECIFIED",
+  CODEX_AUTOMATION_SOURCE_MANUAL_PAGE: "CODEX_AUTOMATION_SOURCE_MANUAL_PAGE",
+  CODEX_AUTOMATION_SOURCE_SUGGESTED_CARD:
+    "CODEX_AUTOMATION_SOURCE_SUGGESTED_CARD",
+  CODEX_AUTOMATION_SOURCE_PENDING_WORKTREE:
+    "CODEX_AUTOMATION_SOURCE_PENDING_WORKTREE",
+  CODEX_AUTOMATION_SOURCE_PR_MERGE_HELPER:
+    "CODEX_AUTOMATION_SOURCE_PR_MERGE_HELPER",
+  CODEX_AUTOMATION_SOURCE_AGENT_TOOL: "CODEX_AUTOMATION_SOURCE_AGENT_TOOL",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export const AutomationStatusProto = automationStatusValues;
+export const ExecutionEnvironmentProto = executionEnvironmentValues;
+export const ReasoningEffortProto = reasoningEffortValues;
+export const ScheduleFrequencyProto = scheduleFrequencyValues;
+
+export const codexAutomationProductEvent = {
+  $type: "protobuf_analytics_events.v1.CodexAutomationEvent",
+};
+
+export const isKnownReasoningEffort = isAutomationReasoningEffort;

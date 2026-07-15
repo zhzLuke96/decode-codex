@@ -1,0 +1,57 @@
+// Restored from ref/webview/assets/app-initial~app-main~remote-conversation-page~plugin-detail-page~new-thread-panel-page~appg~ijdupmx5-CdYgxe-b.js
+// Git branch icon extracted from the current appg shared producer.
+
+import type { SVGProps } from "react";
+
+export type GitBranchIconProps = SVGProps<SVGSVGElement>;
+
+export function GitBranchIcon(props: GitBranchIconProps) {
+  return (
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <circle
+        cx={5.4165}
+        cy={5}
+        r={1.875}
+        stroke="currentColor"
+        strokeWidth={1.33}
+      />
+      <circle
+        cx={5.4165}
+        cy={15}
+        r={1.875}
+        stroke="currentColor"
+        strokeWidth={1.33}
+      />
+      <circle
+        cx={14.5833}
+        cy={5}
+        r={1.875}
+        stroke="currentColor"
+        strokeWidth={1.33}
+      />
+      <path
+        d="M5.4165 6.66664V13.3333"
+        stroke="currentColor"
+        strokeWidth={1.33}
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5.41658 12.5V11.6667C5.41658 10.7462 6.16278 10 7.08325 10H12.9166C13.8371 10 14.5833 9.25381 14.5833 8.33333V7.5"
+        stroke="currentColor"
+        strokeWidth={1.33}
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function initGitBranchIcon(): void {}
+
+export default GitBranchIcon;

@@ -1,0 +1,3 @@
+import { n as e, t } from "./html-derivative-CwNjDVn4.js";
+e();
+export { t as default };

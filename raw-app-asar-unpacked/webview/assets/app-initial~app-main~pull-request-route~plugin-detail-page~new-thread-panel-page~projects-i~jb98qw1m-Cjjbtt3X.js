@@ -1,0 +1,81 @@
+import { n as e, s as t } from "./rolldown-runtime-Czos8NxU.js";
+import {
+  I2 as n,
+  KJ as r,
+  L2 as i,
+  k2 as a,
+  qJ as o,
+} from "./app-initial~app-main~onboarding-page~hotkey-window-thread-page~quick-chat-window-page~chatg~gwqc41kz-Bj9ubaFn.js";
+var s,
+  c,
+  l = e(() => {
+    (t(i()),
+      (s = a()),
+      (c = (e) =>
+        (0, s.jsxs)(`svg`, {
+          xmlns: `http://www.w3.org/2000/svg`,
+          width: 20,
+          height: 20,
+          fill: `currentColor`,
+          viewBox: `0 0 20 20`,
+          ...e,
+          children: [
+            (0, s.jsx)(`path`, {
+              d: `M3.165 10c0-3.51 3.024-6.418 6.835-6.418S16.835 6.49 16.835 10a6.138 6.138 0 0 1-1.388 3.877.667.667 0 0 0-.136.54c.095.508.23 1.003.384 1.487a12.883 12.883 0 0 1-1.823-.376l-.126-.022a.664.664 0 0 0-.369.076 7.145 7.145 0 0 1-3.377.837c-3.811 0-6.835-2.91-6.835-6.42Zm-1.33 0c0 4.314 3.692 7.749 8.165 7.749a8.487 8.487 0 0 0 3.766-.873c.92.242 1.865.393 2.86.455a.665.665 0 0 0 .661-.903l-.207-.565c-.162-.468-.3-.933-.402-1.402A7.45 7.45 0 0 0 18.165 10c0-4.315-3.692-7.748-8.165-7.748-4.473 0-8.165 3.433-8.165 7.748Z`,
+            }),
+            (0, s.jsx)(`path`, {
+              d: `M10 6.335A.665.665 0 0 0 9.335 7v2.335L7 9.349l-.134.013a.665.665 0 0 0 0 1.303L7 10.68l2.335-.014V13a.665.665 0 0 0 1.33 0v-2.335L13 10.68a.665.665 0 0 0 0-1.33l-2.335-.014V7A.665.665 0 0 0 10 6.335Z`,
+            }),
+          ],
+        })));
+  });
+function u(e) {
+  let t = (0, d.c)(11),
+    { children: n, className: i, icon: a, label: o } = e,
+    s;
+  t[0] === i
+    ? (s = t[1])
+    : ((s = r(
+        `grid min-h-[var(--height-token-row)] grid-cols-1 items-start gap-x-3 gap-y-0.5 py-row-y text-[length:var(--detail-row-font-size,var(--text-base))] leading-5 [@container_(min-width:24rem)]:grid-cols-[var(--detail-property-label-width,120px)_minmax(0,1fr)] [@container_(min-width:24rem)]:items-center`,
+        i,
+      )),
+      (t[0] = i),
+      (t[1] = s));
+  let c;
+  t[2] !== a || t[3] !== o
+    ? ((c = (0, f.jsxs)(`dt`, {
+        className: `flex min-w-0 items-center gap-2 wrap-anywhere text-token-description-foreground`,
+        children: [a, o],
+      })),
+      (t[2] = a),
+      (t[3] = o),
+      (t[4] = c))
+    : (c = t[4]);
+  let l;
+  t[5] === n
+    ? (l = t[6])
+    : ((l = (0, f.jsx)(`dd`, {
+        className: `m-0 flex min-w-0 items-center wrap-anywhere text-token-foreground`,
+        children: n,
+      })),
+      (t[5] = n),
+      (t[6] = l));
+  let u;
+  return (
+    t[7] !== s || t[8] !== c || t[9] !== l
+      ? ((u = (0, f.jsxs)(`div`, { className: s, children: [c, l] })),
+        (t[7] = s),
+        (t[8] = c),
+        (t[9] = l),
+        (t[10] = u))
+      : (u = t[10]),
+    u
+  );
+}
+var d,
+  f,
+  p = e(() => {
+    ((d = n()), o(), (f = a()));
+  });
+export { l as i, p as n, c as r, u as t };
+//# sourceMappingURL=app-initial~app-main~pull-request-route~plugin-detail-page~new-thread-panel-page~projects-i~jb98qw1m-Cjjbtt3X.js.map

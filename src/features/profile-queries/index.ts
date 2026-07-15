@@ -1,0 +1,63 @@
+// Restored from ref/webview/assets/profile-queries-BWvaDOFi.js
+// profile-queries-BWvaDOFi chunk restored from the Codex webview bundle.
+import { ProfilePhotoUploadError, stripUsernamePrefix } from "./api";
+import {
+  formatCompactProfileNumber,
+  formatDayStreakValue,
+  formatProfilePlanLabel,
+  formatProfileDuration,
+  getProfileInitials,
+  initProfileQueriesFormattingChunk,
+  normalizeUsernameInput,
+  ProfileUsernameValidationError,
+  resolveProfileDisplayName,
+  resolveProfilePlanLabel,
+  validateProfileUsername,
+} from "./formatting";
+import {
+  initProfileQueriesRuntimeChunk,
+  useProfileUsageQuery,
+  useProfileUsageWarmFetchEnabled,
+  useUpdateProfileMutation,
+  useUpdateProfilePhotoMutation,
+  useUpdateUsernameMutation,
+} from "./hooks";
+import {
+  formatProfileDateIso,
+  getCumulativeWeeklyUsageTotals,
+  getProfileActivityLevels,
+  getProfileUsageColumnCount,
+  getProfileUsageDateAtOffset,
+  getProfileUsageGrid,
+  getProfileWeeklyUsageTotals,
+  getRecentDailyActivityLevels,
+} from "./usage";
+export {
+  getProfileWeeklyUsageTotals,
+  getProfileUsageGrid,
+  formatProfileDateIso,
+  initProfileQueriesFormattingChunk,
+  useUpdateProfilePhotoMutation,
+  getProfileUsageColumnCount,
+  formatCompactProfileNumber,
+  stripUsernamePrefix,
+  getProfileInitials,
+  validateProfileUsername,
+  normalizeUsernameInput,
+  resolveProfileDisplayName,
+  useUpdateProfileMutation,
+  formatDayStreakValue,
+  getRecentDailyActivityLevels,
+  useProfileUsageWarmFetchEnabled,
+  initProfileQueriesRuntimeChunk,
+  useUpdateUsernameMutation,
+  resolveProfilePlanLabel,
+  useProfileUsageQuery,
+  ProfileUsernameValidationError,
+  ProfilePhotoUploadError,
+  formatProfileDuration,
+  formatProfilePlanLabel,
+  getProfileUsageDateAtOffset,
+  getCumulativeWeeklyUsageTotals,
+  getProfileActivityLevels,
+};

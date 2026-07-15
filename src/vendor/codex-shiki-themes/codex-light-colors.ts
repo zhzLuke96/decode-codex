@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/codex-light-CP3oidzW.js
+
+export const codexLightColors = {
+  "editor.background": "#ffffff",
+  "editor.foreground": "#0d0d0d",
+  foreground: "#0d0d0d",
+  focusBorder: "#0169cc",
+  "editorCursor.foreground": "#0169cc",
+  "sideBar.background": "#fcfcfc",
+  "sideBar.foreground": "#212121",
+  "sideBarTitle.foreground": "#0d0d0d",
+  "activityBar.background": "#fcfcfc",
+  "activityBar.activeBorder": "#0169cc",
+  "activityBarBadge.background": "#0169cc",
+  "editorGroupHeader.tabsBackground": "#fcfcfc",
+  "panel.background": "#fcfcfc",
+  "button.background": "#0169cc",
+  "textLink.foreground": "#0169cc",
+  "gitDecoration.addedResourceForeground": "#00a240",
+  "gitDecoration.deletedResourceForeground": "#e02e2a",
+  "gitDecoration.untrackedResourceForeground": "#00a240",
+  "terminal.ansiRed": "#D53538",
+  "terminal.ansiGreen": "#008809",
+  "terminal.ansiMagenta": "#751ED9",
+  "terminal.ansiBrightRed": "#F44A4C",
+  "terminal.ansiBrightGreen": "#59d24e",
+  "terminal.ansiBrightMagenta": "#9840FF",
+} as const;

@@ -1,0 +1,41 @@
+// Restored from ref/webview/assets/use-media-query-B9nva7HK.js
+// Also matches ref/webview/assets/use-media-query-CUpGkpzI.js.
+// Also matches ref/webview/assets/use-media-query-BNTymZCj.js.
+// Current BNTymZCj source verified as the same matchMedia hook plus init thunk.
+import React from "react";
+
+export function initUseMediaQueryChunk(): void {
+  // The bundled chunk used this export to initialize lazy runtime bindings.
+  // The semantic module imports React eagerly, so no runtime work remains.
+}
+
+function getMediaQueryMatches(query: string): boolean {
+  return typeof window !== "undefined" &&
+    typeof window.matchMedia === "function"
+    ? window.matchMedia(query).matches
+    : false;
+}
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = React.useState(() =>
+    getMediaQueryMatches(query),
+  );
+  React.useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    )
+      return;
+    const mediaQuery = window.matchMedia(query);
+    setMatches(mediaQuery.matches);
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
+    };
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
+  }, [query]);
+  return matches;
+}

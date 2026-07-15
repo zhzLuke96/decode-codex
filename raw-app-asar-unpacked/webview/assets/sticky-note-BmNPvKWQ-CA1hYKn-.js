@@ -1,0 +1,18 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import { n as t, t as n } from "./createLucideIcon-BrIFp4GW-lBs_zH0L.js";
+var r,
+  i = e(() => {
+    (t(),
+      (r = n(`StickyNote`, [
+        [
+          `path`,
+          {
+            d: `M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z`,
+            key: `qazsjp`,
+          },
+        ],
+        [`path`, { d: `M15 3v4a2 2 0 0 0 2 2h4`, key: `40519r` }],
+      ])));
+  });
+export { i as n, r as t };
+//# sourceMappingURL=sticky-note-BmNPvKWQ-CA1hYKn-.js.map

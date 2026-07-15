@@ -1,0 +1,7 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import { n as t, t as n } from "./rectangle-ellipsis-CDrFdzFd-DCTWdE2U.js";
+e(() => {
+  t();
+})();
+export { n as default };
+//# sourceMappingURL=form-input-5a547ZA5-CCaoejJ2.js.map

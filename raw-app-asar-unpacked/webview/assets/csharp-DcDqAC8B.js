@@ -1,0 +1,3 @@
+import { n as e, t } from "./csharp-C3QD2ZqT.js";
+e();
+export { t as default };

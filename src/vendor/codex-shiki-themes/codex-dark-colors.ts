@@ -1,0 +1,28 @@
+// Restored from ref/webview/assets/codex-dark-C0SGGgEz.js
+
+export const codexDarkColors = {
+  "editor.background": "#111111",
+  "editor.foreground": "#fcfcfc",
+  foreground: "#fcfcfc",
+  focusBorder: "#0169cc",
+  "editorCursor.foreground": "#0169cc",
+  "sideBar.background": "#131313",
+  "sideBar.foreground": "#8f8f8f",
+  "sideBarTitle.foreground": "#fcfcfc",
+  "activityBar.background": "#131313",
+  "activityBar.activeBorder": "#0169cc",
+  "activityBarBadge.background": "#0169cc",
+  "editorGroupHeader.tabsBackground": "#131313",
+  "panel.background": "#131313",
+  "button.background": "#0169cc",
+  "textLink.foreground": "#0169cc",
+  "gitDecoration.addedResourceForeground": "#00a240",
+  "gitDecoration.deletedResourceForeground": "#e02e2a",
+  "gitDecoration.untrackedResourceForeground": "#00a240",
+  "terminal.ansiRed": "#F67576",
+  "terminal.ansiGreen": "#85df7b",
+  "terminal.ansiMagenta": "#B06DFF",
+  "terminal.ansiBrightRed": "#F44A4C",
+  "terminal.ansiBrightGreen": "#59d24e",
+  "terminal.ansiBrightMagenta": "#9840FF",
+} as const;

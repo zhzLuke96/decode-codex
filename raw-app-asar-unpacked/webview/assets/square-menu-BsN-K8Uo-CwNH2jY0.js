@@ -1,0 +1,3 @@
+import { n as e, t } from "./square-menu-BsN-K8Uo-ChTsiUiJ.js";
+e();
+export { t as default };

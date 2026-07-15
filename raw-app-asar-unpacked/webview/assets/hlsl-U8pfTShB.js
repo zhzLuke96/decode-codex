@@ -1,0 +1,3 @@
+import { n as e, t } from "./hlsl-9MmWJXJM.js";
+e();
+export { t as default };

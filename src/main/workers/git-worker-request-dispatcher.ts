@@ -1,0 +1,918 @@
+// Restored from ref/.vite/build/worker.js
+// Git worker lifecycle, request routing, and branch metadata handlers.
+
+import type { WorkerFeatureContext } from "./worker-feature-context";
+import type {
+  WorkerExecutionHostClient,
+  WorkerExecutionHostConfig,
+} from "./worker-execution-host-client";
+import {
+  GIT_UNAVAILABLE_MESSAGE,
+  isAllowedWhenGitUnavailable,
+  isGitAvailableForHost,
+  isGitUnavailableError,
+} from "./git-worker-availability";
+import { readBlameFile } from "./git-worker-blame-file";
+import {
+  readBranchCommits,
+  readNearestAncestorBranch,
+} from "./git-worker-branch-discovery";
+import {
+  readBaseBranch,
+  readBranchAheadCount,
+  readDefaultBranch,
+  readUpstreamBranchResult,
+} from "./git-worker-branch-base";
+import { readBranchMetadata } from "./git-worker-branch-metadata";
+import {
+  branchExists,
+  clampBranchSearchLimit,
+  clampRecentBranchLimit,
+  readRecentBranches,
+  searchBranches,
+} from "./git-worker-branch-search";
+import { applyChangesToDestination } from "./git-worker-apply-changes";
+import { applyReviewSectionChanges } from "./git-worker-apply-review-section";
+import { readCatFile } from "./git-worker-cat-file";
+import {
+  readConfigValueForScope,
+  readSubmodulePaths,
+  setConfigValueForScope,
+} from "./git-worker-config-queries";
+import { commitGitChanges } from "./git-worker-commit";
+import { readCommitMessageDiff } from "./git-worker-commit-message-diff";
+import { readCurrentBranch } from "./git-worker-current-branch";
+import { readBranchDiffStats } from "./git-worker-diff-stats";
+import { cleanupHostHandoffTransfer } from "./git-worker-host-handoff";
+import { readGitOrigins } from "./git-worker-origin-queries";
+import { readStableMetadata } from "./git-worker-repo-queries";
+import { GitWorkerRepoWatchManager } from "./git-worker-repo-watch";
+import { initializeGitRepository } from "./git-worker-init-repo";
+import { readReviewDiff } from "./git-worker-review/file-diff";
+import { readReviewSummary } from "./git-worker-review/metadata";
+import {
+  requireApplyReviewSectionActionParam,
+  requireReviewFilesParam,
+  requireReviewSectionFilesParam,
+  requireReviewSourceParam,
+} from "./git-worker-review/params";
+import { readReviewPatch } from "./git-worker-review/patch";
+import { searchReviewDiff } from "./git-worker-review/search";
+import { readIndexInfo, readStatusSummary } from "./git-worker-status-queries";
+import {
+  readSyncedBranch,
+  readSyncedBranchDetailedState,
+} from "./git-worker-synced-branch";
+import { handleTurnDiffCaptureRequest } from "./git-worker-turn-diff";
+import { setWorktreeOwnerThread } from "./git-worker-worktree-thread";
+import {
+  readManagedWorktreeState,
+  readWorktreeSnapshotRef,
+} from "./git-worker-managed-worktree";
+import { handleCreateWorktreeRequest } from "./git-worker-create-worktree";
+import { handleWorktreeMutationRequest } from "./git-worker-worktree-mutations";
+import { resolveWorktreeForThread } from "./git-worker-thread-worktree";
+import { handleThreadHandoffRequest } from "./git-worker-thread-handoff";
+import { listCodexWorktrees, listWorktrees } from "./git-worker-worktrees";
+import type { RpcResult } from "./worker-main-rpc-client";
+import { toRpcError } from "./worker-runtime-utils";
+
+type GitWorkerRequest = {
+  id: string;
+  method: string;
+  params?: unknown;
+};
+
+type GitWorkerOutboundMessage =
+  | {
+      type: "worker-response";
+      workerId: string;
+      response: { id: string; method: string; result: RpcResult };
+    }
+  | { type: "worker-event"; workerId: string; event: unknown };
+
+type GitWorkerRequestDispatcherOptions = {
+  spawnInsideWsl?: boolean;
+};
+
+const DEFAULT_LOCAL_HOST_CONFIG: WorkerExecutionHostConfig = {
+  id: "local",
+  display_name: "Local",
+  kind: "local",
+};
+const uncancellableGitWorkerMethods = new Set([
+  "delete-worktree",
+  "dispose-git-init-watch",
+  "invalidate-stable-metadata",
+  "invalidate-git-read-caches",
+  "git-init-repo",
+  "cleanup-host-handoff-transfer",
+  "watch-repo",
+  "unwatch-repo",
+]);
+
+export class GitWorkerRequestDispatcher {
+  private readonly canceledRequests = new Set<string>();
+  private readonly inFlightRequests = new Map<string, AbortController>();
+  private readonly repoWatchManager: GitWorkerRepoWatchManager;
+  private readonly uncancelableRequestIds = new Set<string>();
+  private localGitAvailable: boolean | null = null;
+
+  constructor(
+    private readonly workerId: string,
+    private readonly postMessage: (message: GitWorkerOutboundMessage) => void,
+    private readonly featureContext: WorkerFeatureContext,
+    private readonly options: GitWorkerRequestDispatcherOptions = {},
+  ) {
+    this.repoWatchManager = new GitWorkerRepoWatchManager({
+      emit: (event) => this.postWorkerEvent(event),
+    });
+  }
+
+  handleRequest(request: GitWorkerRequest): void {
+    void this.handleRequestAsync(request);
+  }
+
+  handleCancel(requestId: string): void {
+    if (this.uncancelableRequestIds.has(requestId)) return;
+    const controller = this.inFlightRequests.get(requestId);
+    if (controller == null) {
+      this.canceledRequests.add(requestId);
+      return;
+    }
+    this.inFlightRequests.delete(requestId);
+    controller.abort(createAbortError());
+  }
+
+  private async handleRequestAsync(request: GitWorkerRequest): Promise<void> {
+    const abortController = new AbortController();
+    const params = isRecord(request.params) ? request.params : {};
+    const hostConfig = isRecord(params.hostConfig)
+      ? (params.hostConfig as WorkerExecutionHostConfig)
+      : DEFAULT_LOCAL_HOST_CONFIG;
+    const executionHost =
+      this.featureContext.git?.createExecutionHost(hostConfig);
+    const isCancellable = !uncancellableGitWorkerMethods.has(request.method);
+
+    if (executionHost == null) {
+      this.postResponse(
+        request,
+        toRpcError(Error("Git worker dependencies are required")),
+      );
+      return;
+    }
+
+    if (isCancellable) {
+      this.inFlightRequests.set(request.id, abortController);
+      if (this.canceledRequests.has(request.id)) {
+        this.canceledRequests.delete(request.id);
+        abortController.abort(createAbortError());
+        this.inFlightRequests.delete(request.id);
+        return;
+      }
+    } else {
+      this.uncancelableRequestIds.add(request.id);
+      this.canceledRequests.delete(request.id);
+    }
+
+    let result: RpcResult;
+    try {
+      if (
+        request.method !== "availability" &&
+        executionHost.isLocal &&
+        !isAllowedWhenGitUnavailable(request.method, params.operationSource) &&
+        !(this.localGitAvailable ??= isGitAvailableForHost({
+          env: process.env,
+          hostIsLocal: executionHost.isLocal,
+          platform: process.platform,
+          spawnInsideWsl: this.options.spawnInsideWsl === true,
+        }))
+      ) {
+        throw Error(GIT_UNAVAILABLE_MESSAGE);
+      }
+
+      result = await this.dispatchGitRequest(request, {
+        available: isGitAvailableForHost({
+          env: process.env,
+          hostIsLocal: executionHost.isLocal,
+          platform: process.platform,
+          spawnInsideWsl: this.options.spawnInsideWsl === true,
+        }),
+        host: executionHost,
+        signal: abortController.signal,
+      });
+    } catch (error) {
+      result = fallbackGitErrorResult(request, error);
+    } finally {
+      if (isCancellable) {
+        this.inFlightRequests.delete(request.id);
+      } else {
+        this.uncancelableRequestIds.delete(request.id);
+      }
+      this.canceledRequests.delete(request.id);
+    }
+
+    if (isCancellable && abortController.signal.aborted) return;
+    this.postResponse(request, result);
+  }
+
+  private async dispatchGitRequest(
+    request: GitWorkerRequest,
+    context: {
+      available: boolean;
+      host: WorkerExecutionHostClient;
+      signal: AbortSignal;
+    },
+  ): Promise<RpcResult> {
+    switch (request.method) {
+      case "availability":
+        this.localGitAvailable = context.available;
+        return { type: "ok", value: { available: context.available } };
+      case "stable-metadata": {
+        const params = requireRecordParams(request);
+        const cwd = requireStringParam(params, "cwd");
+        const metadata = await readStableMetadata({
+          cwd,
+          host: context.host,
+          signal: context.signal,
+        });
+        await this.repoWatchManager.resolveStableMetadataWatchState({
+          cwd,
+          host: context.host,
+          metadata,
+          watchForGitInit: optionalBooleanOrNullParam(
+            params,
+            "watchForGitInit",
+          ),
+        });
+        return ok(metadata);
+      }
+      case "current-branch": {
+        const params = requireRecordParams(request);
+        return ok({
+          branch: await readCurrentBranch(
+            context.host,
+            requireStringParam(params, "root"),
+            context.signal,
+          ),
+        });
+      }
+      case "recent-branches": {
+        const params = requireRecordParams(request);
+        return ok({
+          branches: await readRecentBranches({
+            host: context.host,
+            limit: clampRecentBranchLimit(params.limit),
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "branch-exists": {
+        const params = requireRecordParams(request);
+        return ok({
+          exists: await branchExists({
+            branch: requireStringParam(params, "branch"),
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "upstream-branch": {
+        const params = requireRecordParams(request);
+        const root = requireStringParam(params, "root");
+        return ok(
+          await readUpstreamBranchResult(context.host, root, context.signal),
+        );
+      }
+      case "default-branch": {
+        const params = requireRecordParams(request);
+        return ok({
+          branch: await readDefaultBranch(
+            context.host,
+            requireStringParam(params, "root"),
+            context.signal,
+          ),
+        });
+      }
+      case "base-branch": {
+        const params = requireRecordParams(request);
+        const baseBranch = await readBaseBranch(
+          context.host,
+          requireStringParam(params, "root"),
+          context.signal,
+        );
+        return ok({
+          local: baseBranch?.branch ?? null,
+          remote: baseBranch?.remote ?? null,
+        });
+      }
+      case "branch-ahead-count": {
+        const params = requireRecordParams(request);
+        return ok({
+          commitsAhead: await readBranchAheadCount(
+            context.host,
+            requireStringParam(params, "root"),
+            context.signal,
+          ),
+        });
+      }
+      case "branch-commits": {
+        const params = requireRecordParams(request);
+        return ok({
+          commits: await readBranchCommits({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "search-branches": {
+        const params = requireRecordParams(request);
+        return ok({
+          branches: await searchBranches({
+            host: context.host,
+            limit: clampBranchSearchLimit(params.limit),
+            query: requireStringParam(params, "query", { allowEmpty: true }),
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "nearest-ancestor-branch": {
+        const params = requireRecordParams(request);
+        return ok({
+          branch: await readNearestAncestorBranch({
+            candidates: requireStringArrayParam(params, "candidates"),
+            currentBranch: optionalStringParam(params, "currentBranch"),
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "branch-metadata": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readBranchMetadata({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "branch-diff-stats": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readBranchDiffStats({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            cwd: requireStringParam(params, "cwd"),
+            hideWhitespace: optionalBooleanParam(params, "hideWhitespace"),
+            host: context.host,
+            includeUntrackedFiles: params.includeUntrackedFiles !== false,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "review-summary": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewSummary({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            hideWhitespace: optionalBooleanParam(params, "hideWhitespace"),
+            host: context.host,
+            includeUntrackedFiles: params.includeUntrackedFiles !== false,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-diff": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewDiff({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            binary: optionalBooleanParam(params, "binary"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            files: requireReviewFilesParam(params),
+            hideWhitespace: optionalBooleanParam(params, "hideWhitespace"),
+            host: context.host,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-search": {
+        const params = requireRecordParams(request);
+        return ok(
+          await searchReviewDiff({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            query: requireStringParam(params, "query", { allowEmpty: true }),
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "review-patch": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readReviewPatch({
+            baseBranch: optionalStringParam(params, "baseBranch"),
+            commitSha: optionalStringParam(params, "commitSha"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "commit-message-diff": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readCommitMessageDiff({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            includeUnstaged: optionalBooleanParam(params, "includeUnstaged"),
+            signal: context.signal,
+          }),
+        );
+      }
+      case "commit": {
+        const params = requireRecordParams(request);
+        return ok(
+          await commitGitChanges({
+            commitAttribution: params.commitAttribution,
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            includeUnstaged: optionalBooleanParam(params, "includeUnstaged"),
+            message: requireStringParam(params, "message"),
+            signal: context.signal,
+          }),
+        );
+      }
+      case "synced-branch": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readSyncedBranch({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "synced-branch-state": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readSyncedBranchDetailedState({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "invalidate-stable-metadata":
+        this.repoWatchManager.invalidateStableMetadata();
+        return ok({ success: true });
+      case "invalidate-git-read-caches": {
+        const params = requireRecordParams(request);
+        await this.repoWatchManager.invalidateGitReadCaches({
+          clearUntrackedPathsCache: optionalBooleanParam(
+            params,
+            "clearUntrackedPathsCache",
+          ),
+          host: context.host,
+          paths:
+            params.paths == null
+              ? null
+              : requireStringArrayParam(params, "paths"),
+          root: requireStringParam(params, "root"),
+        });
+        return ok({ success: true });
+      }
+      case "dispose-git-init-watch": {
+        const params = requireRecordParams(request);
+        this.repoWatchManager.disposeGitInitWatcher(
+          requireStringParam(params, "cwd"),
+          context.host,
+        );
+        return ok({ success: true });
+      }
+      case "watch-repo": {
+        const params = requireRecordParams(request);
+        await this.repoWatchManager.ensureWatching({
+          commonDir: requireStringParam(params, "commonDir"),
+          host: context.host,
+          root: requireStringParam(params, "root"),
+        });
+        return ok({ success: true });
+      }
+      case "unwatch-repo": {
+        const params = requireRecordParams(request);
+        this.repoWatchManager.unwatchRepo(
+          requireStringParam(params, "root"),
+          context.host,
+        );
+        return ok({ success: true });
+      }
+      case "turn-diff-capture-start":
+      case "turn-diff-capture-complete":
+        return ok(
+          await handleTurnDiffCaptureRequest({
+            host: context.host,
+            request,
+            signal: context.signal,
+          }),
+        );
+      case "delete-worktree":
+      case "restore-worktree":
+        return ok(
+          await handleWorktreeMutationRequest({
+            host: context.host,
+            repoWatchManager: this.repoWatchManager,
+            request,
+            signal: context.signal,
+          }),
+        );
+      case "create-worktree": {
+        const result = await handleCreateWorktreeRequest({
+          emit: (event) => this.postWorkerEvent(event),
+          host: context.host,
+          request,
+          signal: context.signal,
+        });
+        return result.success
+          ? ok({
+              worktreeGitRoot: result.worktreeGitRoot,
+              worktreeWorkspaceRoot: result.worktreeWorkspaceRoot,
+              setupError: result.setupError,
+            })
+          : rpcError(result.error.message);
+      }
+      case "status-summary": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readStatusSummary({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "submodule-paths": {
+        const params = requireRecordParams(request);
+        return ok({
+          paths: await readSubmodulePaths({
+            host: context.host,
+            root: requireStringParam(params, "root"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "cat-file": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readCatFile({
+            cwd: requireStringParam(params, "cwd"),
+            fallbackToDisk: optionalBooleanParam(params, "fallbackToDisk"),
+            host: context.host,
+            oid: optionalStringParam(params, "oid"),
+            path: requireStringParam(params, "path", { allowEmpty: true }),
+            signal: context.signal,
+          }),
+        );
+      }
+      case "blame-file": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readBlameFile({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            path: requireStringParam(params, "path", { allowEmpty: true }),
+            signal: context.signal,
+          }),
+        );
+      }
+      case "index-info": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readIndexInfo({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "config-value": {
+        const params = requireRecordParams(request);
+        return ok({
+          value: await readConfigValueForScope({
+            host: context.host,
+            key: requireStringParam(params, "key"),
+            root: requireStringParam(params, "root"),
+            scope: optionalStringParam(params, "scope"),
+            signal: context.signal,
+          }),
+        });
+      }
+      case "git-origins": {
+        const params = requireRecordParams(request);
+        return ok({
+          origins: await readGitOrigins({
+            dirs: requireStringArrayParam(params, "dirs"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        });
+      }
+      case "set-config-value": {
+        const params = requireRecordParams(request);
+        return ok({
+          success: await setConfigValueForScope({
+            host: context.host,
+            key: requireStringParam(params, "key"),
+            root: requireStringParam(params, "root"),
+            scope: optionalStringParam(params, "scope"),
+            signal: context.signal,
+            value: requireStringParam(params, "value", { allowEmpty: true }),
+          }),
+        });
+      }
+      case "git-init-repo": {
+        const params = requireRecordParams(request);
+        return ok(
+          await initializeGitRepository({
+            cwd: requireStringParam(params, "cwd", { allowEmpty: true }),
+            host: context.host,
+            signal: context.signal,
+          }),
+        );
+      }
+      case "cleanup-host-handoff-transfer": {
+        const params = requireRecordParams(request);
+        return ok(
+          await cleanupHostHandoffTransfer({
+            host: context.host,
+            rolloutPath: requireStringParam(params, "rolloutPath"),
+          }),
+        );
+      }
+      case "apply-changes": {
+        const params = requireRecordParams(request);
+        return ok(
+          await applyChangesToDestination({
+            destinationHeadRef: requireStringParam(
+              params,
+              "destinationHeadRef",
+            ),
+            destinationRoot: requireStringParam(params, "destinationRoot"),
+            host: context.host,
+            signal: context.signal,
+            sourceHeadRef: requireStringParam(params, "sourceHeadRef"),
+            sourceTreeRef: requireStringParam(params, "sourceTreeRef"),
+          }),
+        );
+      }
+      case "apply-review-section-changes": {
+        const params = requireRecordParams(request);
+        return ok(
+          await applyReviewSectionChanges({
+            action: requireApplyReviewSectionActionParam(params),
+            cwd: requireStringParam(params, "cwd"),
+            files: requireReviewSectionFilesParam(params),
+            host: context.host,
+            signal: context.signal,
+            source: requireReviewSourceParam(params),
+          }),
+        );
+      }
+      case "set-worktree-owner-thread": {
+        const params = requireRecordParams(request);
+        try {
+          await setWorktreeOwnerThread({
+            conversationId: requireStringParam(params, "conversationId"),
+            host: context.host,
+            signal: context.signal,
+            worktree: requireStringParam(params, "worktree"),
+          });
+          return ok({ success: true });
+        } catch {
+          return rpcError("Failed to set thread worktree owner");
+        }
+      }
+      case "move-thread-to-local":
+      case "move-thread-to-worktree":
+        return {
+          type: "ok",
+          value: await handleThreadHandoffRequest({
+            emit: (event) => this.postWorkerEvent(event),
+            host: context.host,
+            request,
+            signal: context.signal,
+          }),
+        };
+      case "move-thread-to-host-worktree": {
+        const params = requireRecordParams(request);
+        const destinationHostConfig = requireRecordParam(
+          params,
+          "destinationHostConfig",
+        ) as WorkerExecutionHostConfig;
+        const destinationHost = this.featureContext.git?.createExecutionHost(
+          destinationHostConfig,
+        );
+        if (destinationHost == null) {
+          return rpcError("Destination host dependencies are required");
+        }
+        return {
+          type: "ok",
+          value: await handleThreadHandoffRequest({
+            destinationHost,
+            emit: (event) => this.postWorkerEvent(event),
+            host: context.host,
+            request,
+            signal: context.signal,
+          }),
+        };
+      }
+      case "list-worktrees": {
+        const params = requireRecordParams(request);
+        return ok({
+          worktrees: await listWorktrees({
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+          }),
+        });
+      }
+      case "codex-worktrees":
+        return ok({
+          worktrees: await listCodexWorktrees({
+            host: context.host,
+            signal: context.signal,
+          }),
+        });
+      case "resolve-worktree-for-thread": {
+        const params = requireRecordParams(request);
+        return ok(
+          await resolveWorktreeForThread({
+            conversationId: requireStringParam(params, "conversationId"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+            threadCwd: optionalStringParam(params, "threadCwd"),
+          }),
+        );
+      }
+      case "worktree-snapshot-ref": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readWorktreeSnapshotRef({
+            candidateRoots: requireStringArrayParam(params, "candidateRoots"),
+            host: context.host,
+            signal: context.signal,
+            worktreePath: requireStringParam(params, "worktreePath"),
+          }),
+        );
+      }
+      case "managed-worktree-state": {
+        const params = requireRecordParams(request);
+        return ok(
+          await readManagedWorktreeState({
+            candidateRoots: requireStringArrayParam(params, "candidateRoots"),
+            cwd: requireStringParam(params, "cwd"),
+            host: context.host,
+            signal: context.signal,
+            worktreePath: requireStringParam(params, "worktreePath"),
+          }),
+        );
+      }
+    }
+    throw Error(`Unsupported Git worker method '${request.method}'.`);
+  }
+
+  private postResponse(request: GitWorkerRequest, result: RpcResult): void {
+    this.postMessage({
+      type: "worker-response",
+      workerId: this.workerId,
+      response: { id: request.id, method: request.method, result },
+    });
+  }
+
+  private postWorkerEvent(event: unknown): void {
+    this.postMessage({
+      type: "worker-event",
+      workerId: this.workerId,
+      event,
+    });
+  }
+}
+
+function ok(value: unknown): RpcResult {
+  return { type: "ok", value };
+}
+
+function rpcError(message: string): RpcResult {
+  return { type: "error", error: { message } };
+}
+
+function requireRecordParams(
+  request: GitWorkerRequest,
+): Record<string, unknown> {
+  if (isRecord(request.params)) return request.params;
+  throw Error(`Git worker method '${request.method}' requires parameters`);
+}
+
+function requireStringParam(
+  params: Record<string, unknown>,
+  key: string,
+  options: { allowEmpty?: boolean } = {},
+): string {
+  const value = params[key];
+  if (
+    typeof value === "string" &&
+    (options.allowEmpty === true || value.length > 0)
+  ) {
+    return value;
+  }
+  const requirement =
+    options.allowEmpty === true ? "a string" : "a non-empty string";
+  throw Error(`Git worker parameter '${key}' must be ${requirement}`);
+}
+
+function requireRecordParam(
+  params: Record<string, unknown>,
+  key: string,
+): Record<string, unknown> {
+  const value = params[key];
+  if (isRecord(value)) return value;
+  throw Error(`Git worker parameter '${key}' must be an object`);
+}
+
+function optionalStringParam(
+  params: Record<string, unknown>,
+  key: string,
+): string | null {
+  const value = params[key];
+  if (value == null) return null;
+  if (typeof value === "string") return value;
+  throw Error(`Git worker parameter '${key}' must be a string`);
+}
+
+function requireStringArrayParam(
+  params: Record<string, unknown>,
+  key: string,
+): string[] {
+  const value = params[key];
+  if (Array.isArray(value) && value.every((item) => typeof item === "string")) {
+    return value;
+  }
+  throw Error(`Git worker parameter '${key}' must be a string array`);
+}
+
+function optionalBooleanParam(
+  params: Record<string, unknown>,
+  key: string,
+): boolean {
+  const value = params[key];
+  if (value == null) return false;
+  if (typeof value === "boolean") return value;
+  throw Error(`Git worker parameter '${key}' must be a boolean`);
+}
+
+function optionalBooleanOrNullParam(
+  params: Record<string, unknown>,
+  key: string,
+): boolean | null {
+  const value = params[key];
+  if (value == null) return null;
+  if (typeof value === "boolean") return value;
+  throw Error(`Git worker parameter '${key}' must be a boolean`);
+}
+
+function fallbackGitErrorResult(
+  request: GitWorkerRequest,
+  error: unknown,
+): RpcResult {
+  if (isGitUnavailableError(error)) {
+    if (request.method === "stable-metadata") return ok(null);
+    if (request.method === "git-origins") return ok({ origins: [] });
+  }
+  return toRpcError(error);
+}
+
+function createAbortError(): Error {
+  const error = Error("The operation was aborted");
+  error.name = "AbortError";
+  return error;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value != null;
+}

@@ -1,0 +1,343 @@
+{
+  "chunks": {
+    "avatar-overlay-composition-surface-preload": {
+      "restored": "preload/avatar-overlay-composition-surface-preload.ts",
+      "status": "done"
+    },
+    "bootstrap": {
+      "restored": "bootstrap.ts",
+      "status": "done"
+    },
+    "preload": {
+      "restored": "preload/electron-bridge-preload.ts",
+      "status": "done"
+    },
+    "comment-preload": {
+      "restored": "preload/browser-sidebar-comment-preload.ts",
+      "status": "done",
+      "note": "Semantic preload IPC bridge, host message queue, navigation/image hooks, WebMCP shim, browser sidebar runtime mount host/message controller, Google Workspace document-context helpers, Google Docs overlay class helpers, overlay geometry/layout utilities, overlay event interaction helpers, anchor-state conversion helpers, hit-testing/scroll passthrough helpers, scroll/mutation observer helpers, region drag helpers, frame-path helpers, anchor viewport/marker positioning helpers, element/region anchor builder helpers, text anchor capture/reattachment helpers, design CSS/color helpers, comment anchor comparison helpers, page/frame URL matching helpers, element metadata/style snapshot helpers, design draft DOM application helpers, and comment screenshot coordination helpers restored."
+    },
+    "child-process-snapshot-worker": {
+      "restored": "workers/child-process-snapshot-worker.ts",
+      "status": "done"
+    },
+    "sandbox-preload": {
+      "restored": "preload/mcp-sandbox-preload.ts",
+      "status": "done"
+    },
+    "src-BZqs_tzA": {
+      "restored": "runtime/bundler-runtime.ts",
+      "exports": {
+        "a": "toCommonJsModule",
+        "i": "defineGetterNamespace",
+        "n": "createCommonJsModule",
+        "o": "toEsModule",
+        "r": "createLazyInitializer",
+        "t": "loadDebugModule"
+      },
+      "status": "done"
+    },
+    "core-CQO5x8Dn": {
+      "restored": "boundaries/file-type.ts",
+      "exports": {
+        "fileTypeFromBuffer": "fileTypeFromBuffer"
+      },
+      "status": "done",
+      "boundary": true,
+      "vendor": "file-type",
+      "note": "Vendored npm package re-export shim; package implementation excluded."
+    },
+    "src-C3H9d_bd": {
+      "restored": "boundaries/shared-node-runtime.facade.ts",
+      "status": "done",
+      "vendor": "runtime",
+      "dependencyBoundary": "mixed shared-node runtime facade",
+      "note": "Selective runtime facade restored for app-owned helpers consumed by main/workspace: structured logging, BuildFlavor/brand formatting, env/path safety, WSL/Codex home, settings definitions/defaults/TOML bridge, deep-link/plugin helpers, build-version helpers, Owl feature list, and device status colors. Bundled Zod/third-party internals remain excluded."
+    },
+    "src-CoIhwwHr": {
+      "restored": "boundaries/shared-node-runtime.facade.ts",
+      "status": "done",
+      "vendor": "runtime",
+      "dependencyBoundary": "mixed shared-node runtime facade",
+      "note": "Current-build successor of src-C3H9d_bd. Selective runtime facade restored for app-owned helpers consumed by main/workspace; bundled Zod/third-party internals remain excluded."
+    },
+    "file-based-logger-7hbAyAYH": {
+      "restored": "logging/file-based-logger/index.ts",
+      "exports": {
+        "a": "shouldUseOwlAppShell",
+        "i": "BuildFlavor",
+        "n": "resolveLogRootDir",
+        "o": "readPackageMetadataField",
+        "r": "bundleIdentifierForBuildFlavor",
+        "t": "createFileBasedLogger"
+      },
+      "status": "done"
+    },
+    "file-based-logger-DZ6052-3": {
+      "restored": "logging/file-based-logger/index.ts",
+      "exports": {
+        "a": "shouldUseOwlAppShell",
+        "i": "BuildFlavor",
+        "n": "resolveLogRootDir",
+        "o": "readPackageMetadataField",
+        "r": "bundleIdentifierForBuildFlavor",
+        "t": "createFileBasedLogger"
+      },
+      "status": "done"
+    },
+    "feedback-desktop-log-archive-DeZjTyj3": {
+      "restored": "feedback/desktop-log-archive.ts",
+      "exports": {
+        "n": "removeFeedbackDesktopLogArchive",
+        "t": "createFeedbackDesktopLogArchive"
+      },
+      "status": "done"
+    },
+    "feedback-desktop-log-archive-ClZhaiVs": {
+      "restored": "feedback/desktop-log-archive.ts",
+      "exports": {
+        "n": "removeFeedbackDesktopLogArchive",
+        "t": "createFeedbackDesktopLogArchive"
+      },
+      "status": "done"
+    },
+    "trace-recording-upload-CCNAZiAx": {
+      "restored": "tracing/trace-recording-upload.ts",
+      "exports": {
+        "uploadTraceRecording": "uploadTraceRecording"
+      },
+      "status": "done"
+    },
+    "trace-recording-upload-DPG3eKCS": {
+      "restored": "tracing/trace-recording-upload.ts",
+      "exports": {
+        "uploadTraceRecording": "uploadTraceRecording"
+      },
+      "status": "done"
+    },
+    "worker": {
+      "restored": "workers/app-worker.ts",
+      "status": "done",
+      "vendor": "runtime",
+      "note": "Semantic worker shell, original nested request/response protocol, Computer Use capture start/watchUpdates dispatcher, Computer Use native Apple Event bridge, OpenIn custom-target command/icon handling, built-in OpenIn target command/icon registry, OpenIn target launch/open helpers, worker feature-context mapping, worker-side remote execution-host RPC client, local execution-host filesystem/process/watch client, worker telemetry user updates, Datadog log sink, file logger, and structured logger wiring, Git worker request lifecycle/cancellation/availability checks, concrete Git branch query handlers for current-branch/recent-branches/branch-exists, read-only Git branch metadata handlers for upstream-branch/default-branch/base-branch/branch-ahead-count/branch-metadata/branch-diff-stats and synced-branch/synced-branch-state, branch discovery/history handlers for branch-commits/search-branches/nearest-ancestor-branch, review-summary/review-diff/review-search/review-patch query handlers, apply-changes and apply-review-section-changes patch mutation handlers, commit-message staged/tracked diff collection, commit execution with attribution/nothing-to-commit handling, turn-diff capture/checkpoint snapshot handlers, managed worktree availability/snapshot-ref lookup, create-worktree path allocation/add/copy/config/event-stream handlers, delete-worktree snapshot/remove and restore-worktree snapshot resurrection handlers, conversation owner worktree resolution, same-host thread handoff Git move handlers, cross-host thread handoff bundle/rollout transfer handlers, host handoff cleanup validation/removal, repository watch/unwatch/git-init-watch/invalidation hooks, and repository handlers for stable-metadata/status-summary/submodule-paths/cat-file/blame-file/index-info/config-value/set-config-value/git-origins/git-init-repo/set-worktree-owner-thread/list-worktrees/codex-worktrees restored; Sentry SDK initialization remains an npm/vendor runtime boundary."
+    },
+    "main-r5HnecX_": {
+      "restored": "main.ts",
+      "additionalRestored": [
+        "auth/devicecheck-attestation/index.ts",
+        "ambient/ambient-suggestions-background-refresh/index.ts",
+        "ambient/ambient-suggestions/index.ts",
+        "automations/index.ts",
+        "browser-use-pip/index.ts",
+        "native-app-icons/index.ts",
+        "plugins/computer-use-native-pipe/index.ts",
+        "plugins/computer-use-config/index.ts",
+        "plugins/bundled-plugin-marketplace/index.ts",
+        "plugins/bundled-plugin-marketplace/app-server.ts",
+        "plugins/bundled-plugin-marketplace/chrome-extension-sync-state.ts",
+        "plugins/bundled-plugin-marketplace/content-variants.ts",
+        "plugins/bundled-plugin-marketplace/copy.ts",
+        "plugins/bundled-plugin-marketplace/descriptors/index.ts",
+        "plugins/bundled-plugin-marketplace/errors.ts",
+        "plugins/bundled-plugin-marketplace/folder-removal.ts",
+        "plugins/bundled-plugin-marketplace/install-failures.ts",
+        "plugins/bundled-plugin-marketplace/install-helpers.ts",
+        "plugins/bundled-plugin-marketplace/install-loop.ts",
+        "plugins/bundled-plugin-marketplace/manifest-io.ts",
+        "plugins/bundled-plugin-marketplace/materialize.ts",
+        "plugins/bundled-plugin-marketplace/marketplaces.ts",
+        "plugins/bundled-plugin-marketplace/native-host-runtime.ts",
+        "plugins/bundled-plugin-marketplace/reconcile.ts",
+        "plugins/bundled-plugin-marketplace/resource-roots.ts",
+        "plugins/bundled-plugin-marketplace/sync.ts",
+        "plugins/local-to-bundled-migration/index.ts",
+        "plugins/node-repl-host-services/index.ts"
+      ],
+      "exports": {
+        "runMainAppStartup": "runMainAppStartup"
+      },
+      "status": "done",
+      "vendor": "runtime",
+      "note": "Executable Electron startup bridge restored: runtime handoff, startup telemetry, app:// protocol registration, runtime path/native-intl setup, preload state IPC, system-theme IPC, native menu/context-menu IPC, debug IPC, app-host MessagePort IPC, second-instance focus handling, initial BrowserWindow creation wired to the restored helpers, DeviceCheck attestation helpers split into auth/devicecheck-attestation/, ambient suggestion storage/app-server routes/refresh generation/safety filtering/background refresh split into ambient/, automation prompt/scheduling/heartbeat helpers split into automations/, Browser Use PiP metadata/native presentation helpers split into browser-use-pip/, native desktop app icon helpers split into native-app-icons/, Computer Use native pipe helpers split into plugins/computer-use-native-pipe/, Computer Use overlay config writer split into plugins/computer-use-config/, current bundled-plugin marketplace reconciliation, content-variant override, descriptor/variant selection, error classification, folder removal/path safety, install cleanup helpers, manifest IO, marketplace filtering/sync summary, resource-root discovery, runtime marketplace materialization/copy, and stale-cleanup helpers split into plugins/bundled-plugin-marketplace/, browser-use/computer-use local-to-bundled migrations split into plugins/local-to-bundled-migration/, and node_repl host services/thread config/app-server config sync helpers split into plugins/node-repl-host-services/."
+    },
+    "main-Cfnoc8EH": {
+      "restored": "main.ts",
+      "additionalRestored": [
+        "auth/devicecheck-attestation/index.ts",
+        "ambient/ambient-suggestions-background-refresh/index.ts",
+        "ambient/ambient-suggestions/index.ts",
+        "automations/index.ts",
+        "browser-use-pip/index.ts",
+        "native-app-icons/index.ts",
+        "plugins/computer-use-native-pipe/index.ts",
+        "plugins/computer-use-config/index.ts",
+        "plugins/bundled-plugin-marketplace/index.ts",
+        "plugins/bundled-plugin-marketplace/app-server.ts",
+        "plugins/bundled-plugin-marketplace/chrome-extension-sync-state.ts",
+        "plugins/bundled-plugin-marketplace/content-variants.ts",
+        "plugins/bundled-plugin-marketplace/copy.ts",
+        "plugins/bundled-plugin-marketplace/descriptors/index.ts",
+        "plugins/bundled-plugin-marketplace/errors.ts",
+        "plugins/bundled-plugin-marketplace/folder-removal.ts",
+        "plugins/bundled-plugin-marketplace/install-failures.ts",
+        "plugins/bundled-plugin-marketplace/install-helpers.ts",
+        "plugins/bundled-plugin-marketplace/install-loop.ts",
+        "plugins/bundled-plugin-marketplace/manifest-io.ts",
+        "plugins/bundled-plugin-marketplace/materialize.ts",
+        "plugins/bundled-plugin-marketplace/marketplaces.ts",
+        "plugins/bundled-plugin-marketplace/native-host-runtime.ts",
+        "plugins/bundled-plugin-marketplace/reconcile.ts",
+        "plugins/bundled-plugin-marketplace/resource-roots.ts",
+        "plugins/bundled-plugin-marketplace/sync.ts",
+        "plugins/local-to-bundled-migration/index.ts",
+        "plugins/node-repl-host-services/index.ts"
+      ],
+      "exports": {
+        "runMainAppStartup": "runMainAppStartup"
+      },
+      "status": "done",
+      "vendor": "runtime",
+      "note": "Current-build successor of main-r5HnecX_. Adds the current ambient-suggestions app-server handlers, refresh/generation status pipeline, background refresh coordinator, and bundled marketplace content identity."
+    },
+    "codex-micro-service-rjpeLKbm": {
+      "restored": "devices/codex-micro-service.ts",
+      "exports": {
+        "CodexMicroService": "CodexMicroService"
+      },
+      "status": "done"
+    },
+    "codex-micro-service-BeIQuGMS": {
+      "restored": "devices/codex-micro-service.ts",
+      "exports": {
+        "CodexMicroService": "CodexMicroService"
+      },
+      "status": "done"
+    },
+    "workspace-root-drop-handler-DbDnwAf_": {
+      "restored": "runtime/desktop-runtime-state.ts",
+      "exports": {
+        "$": "configureNativeIntl",
+        "A": "AVATAR_OVERLAY_OPEN_CHANNEL",
+        "B": "loadWindowsUpdaterNativeAddon",
+        "C": "createDeepLinkCoordinator",
+        "D": "setInternalUpdateCdnEnabled",
+        "E": "createDesktopRuntimePaths",
+        "F": "LOCAL_REMOTE_CONTROL_INSTALLATION_ID_KEY",
+        "G": "isOwlFeatureEnabled",
+        "H": "desktopReleaseMetadata",
+        "I": "OPENAI_MCP_FORM_ELICITATIONS_ENABLED_KEY",
+        "J": "createWebviewAppUrl",
+        "K": "applyOwlFeatureBootstrapCache",
+        "L": "PERSISTED_ATOM_STATE_KEY",
+        "M": "CHROME_EXTENSION_SYNC_MANAGED_PLUGIN_IDS_KEY",
+        "N": "INTEGRITY_STATE_ENVELOPE_KEY",
+        "O": "applyNativeThemeSource",
+        "P": "LOCAL_REMOTE_CONTROL_ENVIRONMENT_ID_KEY",
+        "Q": "NativeIntlMessages",
+        "R": "REMOTE_CONTROL_CLIENT_ENROLLMENTS_KEY",
+        "S": "getCurrentAppBundlePath",
+        "T": "getDesktopRuntimeState",
+        "U": "codexAppSessionId",
+        "V": "desktopReleaseMetadata",
+        "W": "createOwlFeatureSettingsApi",
+        "X": "filePathFromAppFileUrl",
+        "Y": "webviewRootFromModuleDir",
+        "Z": "registerAppProtocolHandler",
+        "_": "showStateDatabaseRebuiltDialog",
+        "a": "getRemoteWorkspaceRootsForHost",
+        "b": "ignoreConsolePipeErrors",
+        "c": "pushProjectOrder",
+        "d": "setWorkspaceRootOptions",
+        "et": "getNativeIntl",
+        "f": "updateWorkspaceRootLabels",
+        "g": "extractStateDatabasePathFromError",
+        "h": "extractDesktopOpenFileArgs",
+        "i": "getActiveWorkspaceRoots",
+        "j": "BROWSER_DOWNLOAD_HISTORY_KEY",
+        "k": "AVATAR_OVERLAY_BOUNDS_KEY",
+        "l": "ensureInitialWorkspaceRootSelection",
+        "m": "isSupportedDesktopOpenFile",
+        "n": "initializeOpenFileQueue",
+        "nt": "getRuntimeAppName",
+        "o": "getWorkspaceRootLabels",
+        "p": "updateWorkspaceRootOptions",
+        "q": "recoverStateDatabaseAccess",
+        "r": "createDesktopOpenPathHandler",
+        "s": "getWorkspaceRootOptions",
+        "t": "queueDesktopOpenPaths",
+        "tt": "getRuntimeAppBrand",
+        "u": "setActiveWorkspaceRoots",
+        "v": "verifyStateDatabaseAvailable",
+        "w": "shouldUseSingleInstanceLock",
+        "x": "installDesktopLogBridge",
+        "y": "openStateDatabaseWithRecovery",
+        "z": "WORKTREE_CLEANUP_BUFFER_START_MS_KEY"
+      },
+      "status": "done",
+      "note": "Split into 28 domain files under main/{intl,protocol,owl,updater,settings,state-db,deeplinks,runtime,logging,workspace}/ (primary: runtime/desktop-runtime-state.ts); cryptic alias exports dropped — consumers use the semantic names below. desktopReleaseMetadata (alias H) was internalized (no consumers). | Workspace-root selection, app:// protocol handling, deep-link routing, SQLite recovery, Owl feature bootstrap/cache state, file-backed global state, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
+    },
+    "workspace-root-drop-handler-DeLi4ACJ": {
+      "restored": "runtime/desktop-runtime-state.ts",
+      "exports": {
+        "$": "configureNativeIntl",
+        "A": "AVATAR_OVERLAY_OPEN_CHANNEL",
+        "B": "loadWindowsUpdaterNativeAddon",
+        "C": "createDeepLinkCoordinator",
+        "D": "setInternalUpdateCdnEnabled",
+        "E": "createDesktopRuntimePaths",
+        "F": "LOCAL_REMOTE_CONTROL_INSTALLATION_ID_KEY",
+        "G": "isOwlFeatureEnabled",
+        "H": "desktopReleaseMetadata",
+        "I": "OPENAI_MCP_FORM_ELICITATIONS_ENABLED_KEY",
+        "J": "createWebviewAppUrl",
+        "K": "applyOwlFeatureBootstrapCache",
+        "L": "PERSISTED_ATOM_STATE_KEY",
+        "M": "CHROME_EXTENSION_SYNC_MANAGED_PLUGIN_IDS_KEY",
+        "N": "INTEGRITY_STATE_ENVELOPE_KEY",
+        "O": "applyNativeThemeSource",
+        "P": "LOCAL_REMOTE_CONTROL_ENVIRONMENT_ID_KEY",
+        "Q": "NativeIntlMessages",
+        "R": "REMOTE_CONTROL_CLIENT_ENROLLMENTS_KEY",
+        "S": "getCurrentAppBundlePath",
+        "T": "getDesktopRuntimeState",
+        "U": "codexAppSessionId",
+        "V": "desktopReleaseMetadata",
+        "W": "createOwlFeatureSettingsApi",
+        "X": "filePathFromAppFileUrl",
+        "Y": "webviewRootFromModuleDir",
+        "Z": "registerAppProtocolHandler",
+        "_": "showStateDatabaseRebuiltDialog",
+        "a": "getRemoteWorkspaceRootsForHost",
+        "b": "ignoreConsolePipeErrors",
+        "c": "pushProjectOrder",
+        "d": "setWorkspaceRootOptions",
+        "et": "getNativeIntl",
+        "f": "updateWorkspaceRootLabels",
+        "g": "extractStateDatabasePathFromError",
+        "h": "extractDesktopOpenFileArgs",
+        "i": "getActiveWorkspaceRoots",
+        "j": "BROWSER_DOWNLOAD_HISTORY_KEY",
+        "k": "AVATAR_OVERLAY_BOUNDS_KEY",
+        "l": "ensureInitialWorkspaceRootSelection",
+        "m": "isSupportedDesktopOpenFile",
+        "n": "initializeOpenFileQueue",
+        "nt": "getRuntimeAppName",
+        "o": "getWorkspaceRootLabels",
+        "p": "updateWorkspaceRootOptions",
+        "q": "recoverStateDatabaseAccess",
+        "r": "createDesktopOpenPathHandler",
+        "s": "getWorkspaceRootOptions",
+        "t": "queueDesktopOpenPaths",
+        "tt": "getRuntimeAppBrand",
+        "u": "setActiveWorkspaceRoots",
+        "v": "verifyStateDatabaseAvailable",
+        "w": "shouldUseSingleInstanceLock",
+        "x": "installDesktopLogBridge",
+        "y": "openStateDatabaseWithRecovery",
+        "z": "WORKTREE_CLEANUP_BUFFER_START_MS_KEY"
+      },
+      "status": "done",
+      "note": "Split into 28 domain files under main/{intl,protocol,owl,updater,settings,state-db,deeplinks,runtime,logging,workspace}/ (primary: runtime/desktop-runtime-state.ts); cryptic alias exports dropped — consumers use the semantic names below. desktopReleaseMetadata (alias H) was internalized (no consumers). | Current-build successor of workspace-root-drop-handler-DbDnwAf_. Workspace-root selection, app:// protocol handling, SQLite recovery, desktop settings-store config/migration paths, and updater/Sparkle lifecycle manager restored; Sentry/OpenTelemetry SDK boundary remains vendor-owned."
+    }
+  }
+}

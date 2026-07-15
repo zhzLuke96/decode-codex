@@ -1,0 +1,18 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import { n as t, t as n } from "./createLucideIcon-BrIFp4GW-lBs_zH0L.js";
+var r,
+  i = e(() => {
+    (t(),
+      (r = n(`HdmiPort`, [
+        [
+          `path`,
+          {
+            d: `M22 9a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1l2 2h12l2-2h1a1 1 0 0 0 1-1Z`,
+            key: `2128wb`,
+          },
+        ],
+        [`path`, { d: `M7.5 12h9`, key: `1t0ckc` }],
+      ])));
+  });
+export { i as n, r as t };
+//# sourceMappingURL=hdmi-port-DbzK2tOB-Dr6hb601.js.map

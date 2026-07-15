@@ -1,0 +1,3 @@
+import { n as e, t } from "./gdshader-BG1VLyUn.js";
+e();
+export { t as default };

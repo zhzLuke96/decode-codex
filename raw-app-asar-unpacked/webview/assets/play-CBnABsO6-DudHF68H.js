@@ -1,0 +1,11 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import { n as t, t as n } from "./createLucideIcon-BrIFp4GW-lBs_zH0L.js";
+var r,
+  i = e(() => {
+    (t(),
+      (r = n(`Play`, [
+        [`polygon`, { points: `6 3 20 12 6 21 6 3`, key: `1oa8hb` }],
+      ])));
+  });
+export { i as n, r as t };
+//# sourceMappingURL=play-CBnABsO6-DudHF68H.js.map

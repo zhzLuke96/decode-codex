@@ -1,0 +1,315 @@
+// Restored from ref/webview/assets/home-ambient-suggestions-content-QPiHWv2t.js
+// Home ambient suggestions content restored from the current Codex webview chunk.
+
+import React from "react";
+import {
+  once as rolldownRuntimeN,
+  toEsModule as rolldownRuntimeS,
+} from "../../runtime/commonjs-interop";
+import {
+  currentAppInitialSharedCompatSlotUpperD as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wD,
+  currentAppInitialSharedCompatSlotUpperDLowerT as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wDt,
+  currentAppInitialSharedCompatSlotUpperE as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wE,
+  currentAppInitialSharedCompatSlotUpperGLowerO as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGo,
+  currentAppInitialSharedCompatSlotUpperGLowerS as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGs,
+  currentAppInitialSharedCompatSlotUpperJLowerS as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wJs,
+  currentAppInitialSharedCompatSlotUpperKLowerO as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wKo,
+  currentAppInitialSharedCompatSlotUpperO as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wO,
+  currentAppInitialSharedCompatSlotUpperULowerA as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wUa,
+  currentAppInitialSharedCompatSlotUpperVLowerA as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wVa,
+  currentAppInitialSharedCompatSlotUpperVLowerO as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wVo,
+  currentAppInitialSharedCompatSlotUnderscoreLowerC as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wC,
+  currentAppInitialSharedCompatSlotLowerC as _appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wC,
+  currentAppInitialSharedCompatSlotLowerCLowerT as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wCt,
+  currentAppInitialSharedCompatSlotLowerGLowerC as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGc,
+  currentAppInitialSharedCompatSlotLowerLLowerC as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wLc,
+  currentAppInitialSharedCompatSlotLowerQLowerO as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wQo,
+  currentAppInitialSharedCompatSlotLowerQLowerS as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wQs,
+  currentAppInitialSharedCompatSlotLowerU as appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wU,
+} from "../../runtime/current-app-initial/current-app-initial-shared-runtime";
+import {
+  worktreeNewThreadOrchestratorCompatSlotUpperKLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKg2pu5rsKp,
+  worktreeNewThreadOrchestratorCompatSlotLowerQLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKg2pu5rsQp,
+} from "../../runtime/current-app-initial/worktree-new-thread-orchestrator-runtime";
+import {
+  worktreeNewThreadQueryCompatSlotUpperCLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwCs,
+  worktreeNewThreadQueryCompatSlotUpperDLowerD as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwDd,
+  worktreeNewThreadQueryCompatSlotUpperDLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwDp,
+  worktreeNewThreadQueryCompatSlotUpperDLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwDs,
+  worktreeNewThreadQueryCompatSlotUpperELowerD as AppInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwEd,
+  worktreeNewThreadQueryCompatSlotUpperELowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwEp,
+  worktreeNewThreadQueryCompatSlotUpperGLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwGl,
+  worktreeNewThreadQueryCompatSlotUpperILowerF as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwIf,
+  worktreeNewThreadQueryCompatSlotUpperILowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwIl,
+  worktreeNewThreadQueryCompatSlotUpperJLowerD as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwJd,
+  worktreeNewThreadQueryCompatSlotUpperKLowerU as AppInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwKu,
+  worktreeNewThreadQueryCompatSlotUpperLLowerF as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwLf,
+  worktreeNewThreadQueryCompatSlotUpperMLowerU as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwMu,
+  worktreeNewThreadQueryCompatSlotUpperNLowerC as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwNc,
+  worktreeNewThreadQueryCompatSlotUpperNLowerF as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwNf,
+  worktreeNewThreadQueryCompatSlotUpperPLowerF as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwPf,
+  worktreeNewThreadQueryCompatSlotUpperSLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwSs,
+  worktreeNewThreadQueryCompatSlotUpperULowerM as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwUm,
+  worktreeNewThreadQueryCompatSlotUpperXLowerU as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwXu,
+  worktreeNewThreadQueryCompatSlotUnderscoreLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwS,
+  worktreeNewThreadQueryCompatSlotLowerBLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwBl,
+  worktreeNewThreadQueryCompatSlotLowerBLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwBp,
+  worktreeNewThreadQueryCompatSlotLowerBLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwBs,
+  worktreeNewThreadQueryCompatSlotLowerCLowerC as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwCc,
+  worktreeNewThreadQueryCompatSlotLowerELowerF as AppInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwEf,
+  worktreeNewThreadQueryCompatSlotLowerGLowerL as _appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwGl,
+  worktreeNewThreadQueryCompatSlotLowerGLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwGp,
+  worktreeNewThreadQueryCompatSlotLowerHLowerH as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwHh,
+  worktreeNewThreadQueryCompatSlotLowerHLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwHl,
+  worktreeNewThreadQueryCompatSlotLowerILowerC as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwIc,
+  worktreeNewThreadQueryCompatSlotLowerKLowerC as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwKc,
+  worktreeNewThreadQueryCompatSlotLowerKLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwKs,
+  worktreeNewThreadQueryCompatSlotLowerMLowerH as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwMh,
+  worktreeNewThreadQueryCompatSlotLowerMLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwMp,
+  worktreeNewThreadQueryCompatSlotLowerOLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwOp,
+  worktreeNewThreadQueryCompatSlotLowerQLowerU as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwQu,
+  worktreeNewThreadQueryCompatSlotLowerSLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwSp,
+  worktreeNewThreadQueryCompatSlotLowerVLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwVl,
+  worktreeNewThreadQueryCompatSlotLowerVLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwVs,
+  worktreeNewThreadQueryCompatSlotLowerWLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwWs,
+  worktreeNewThreadQueryCompatSlotLowerXLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwXp,
+  worktreeNewThreadQueryCompatSlotLowerXLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwXs,
+  worktreeNewThreadQueryCompatSlotLowerYLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwYl,
+  worktreeNewThreadQueryCompatSlotLowerYLowerP as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwYp,
+  worktreeNewThreadQueryCompatSlotLowerYLowerS as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwYs,
+  worktreeNewThreadQueryCompatSlotLowerZLowerC as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwZc,
+  worktreeNewThreadQueryCompatSlotLowerZLowerL as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwZl,
+  worktreeNewThreadQueryCompatSlotLowerZLowerM as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwZm,
+  worktreeNewThreadQueryCompatSlotLowerZLowerU as appInitialAppMainWorktreeInitV2PageRemoteConversationPageNewThreadPanelPageOKo8xg8gwZu,
+} from "../../runtime/current-app-initial/worktree-new-thread-query-runtime";
+import {
+  currentAppInitialSharedMember0011 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dP,
+  imagePickerSchemaCapabilities as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dBl,
+  parseWorkspaceRootPathList as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dFa,
+  currentAppInitialSharedMember0117 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dGd,
+  currentAppInitialSharedMember0121 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dGl,
+  intlFormatDateTimeRuntime as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dIy,
+  currentAppInitialSharedMember0166 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dJd,
+  appServerErrorSchema as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dJn,
+  currentAppInitialSharedMember0184 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dKl,
+  remoteControlRefreshSourceEnum as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dKp,
+  currentAppInitialSharedMember0273 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dPy,
+  currentAppInitialSharedDisplayRuntime as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dQp,
+  remoteConnectionRuntime0298 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dRl,
+  currentAppInitialSharedMember0353 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dUl,
+  codexTextLinkTextLinkPromptRuntime as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dUr,
+  currentAppInitialSharedFunction0375 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dVy,
+  currentAppInitialSharedMember0379 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dWd,
+  currentAppInitialSharedMember0384 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dWl,
+  markdownFunction0388 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dWr,
+  currentAppInitialSharedMember0414 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dYd,
+  workspaceCwdHostConfigFunction as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dYn,
+  remoteConnectionRuntime0472 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dAm,
+  schemaFunction0521 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dDc,
+  serviceTierRuntime0553 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dFc,
+  currentAppInitialSharedFunction0722 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dOm,
+  currentAppInitialSharedMember0730 as AppInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dOy,
+  currentAppInitialSharedMember0781 as AppInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dRy,
+  currentAppInitialSharedMember0799 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dSy,
+  currentAppInitialSharedRuntime0816 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dTy,
+  currentAppInitialSharedRuntime0840 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dVg,
+  openAiNativeAppDefinition as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dXa,
+  currentAppInitialSharedFunction0895 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dYg,
+  currentAppInitialSharedMember0924 as appInitialAppMainRemoteConversationPageNewThreadPanelPageProjectsIndexPageAppIy8s9c2dZy,
+} from "../../runtime/current-app-initial/remote-projects-app-shared-runtime";
+import {
+  appMainCurrentCompatSlotUpperBLowerF as AppInitialAppMainOnboardingPageBf,
+  appMainCurrentCompatSlotUpperCLowerP as appInitialAppMainOnboardingPageCp,
+  appMainCurrentCompatSlotUpperDLowerP as appInitialAppMainOnboardingPageDp,
+  initThreadRowLayoutRuntimeChunk as appInitialAppMainOnboardingPageFf,
+  appMainCurrentCompatSlotUpperGLowerF as AppInitialAppMainOnboardingPageGf,
+  appMainCurrentCompatSlotUpperLLowerF as AppInitialAppMainOnboardingPageLf,
+  appMainCurrentCompatSlotUpperMLowerF as appInitialAppMainOnboardingPageMf,
+  appMainCurrentCompatSlotUpperNLowerF as AppInitialAppMainOnboardingPageNf,
+  appMainCurrentCompatSlotUpperNLowerP as appInitialAppMainOnboardingPageNp,
+  initSidebarTaskRowRuntimeChunk as appInitialAppMainOnboardingPagePf,
+  appMainCurrentCompatSlotUpperPLowerP as appInitialAppMainOnboardingPagePp,
+  appMainCurrentCompatSlotUpperRLowerF as AppInitialAppMainOnboardingPageRf,
+  appMainCurrentCompatSlotUpperVLowerF as AppInitialAppMainOnboardingPageVf,
+  appMainCurrentCompatSlotUpperYLowerF as appInitialAppMainOnboardingPageYf,
+  appMainCurrentCompatSlotLowerALowerM as appInitialAppMainOnboardingPageAm,
+  appMainCurrentCompatSlotLowerGLowerP as AppInitialAppMainOnboardingPageGp,
+  useComposedRefs as AppInitialAppMainOnboardingPageHp,
+  appMainCurrentCompatSlotLowerKLowerP as appInitialAppMainOnboardingPageKp,
+  appMainCurrentCompatSlotLowerOLowerM as appInitialAppMainOnboardingPageOm,
+  appMainCurrentCompatSlotLowerWLowerP as AppInitialAppMainOnboardingPageWp,
+  appMainCurrentCompatSlotLowerZLowerF as AppInitialAppMainOnboardingPageZf,
+} from "../../vendor/app-main-current-runtime/index";
+import {
+  appgenLibraryHotDjo67r4nCompatSlotUpperCLowerI as appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nCi,
+  appgenLibraryHotDjo67r4nCompatSlotLowerBLowerI as appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nBi,
+  appgenLibraryHotDjo67r4nCompatSlotLowerWLowerI as appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nWi,
+  appgenLibraryHotDjo67r4nCompatSlotLowerXLowerI as appInitialAppMainRemoteConversationPageNewThreadPanelPageAppgenLibraryPageHotDjo67r4nXi,
+} from "../../runtime/current-app-initial/appgen-library-hot-djo67r4n-runtime";
+import {
+  useWorkspaceHeadline as appInitialAppMainHomeAmbientSuggestionsContentR,
+  initWorkspaceMessagesQueryChunk as appInitialAppMainHomeAmbientSuggestionsContentT,
+} from "../../runtime/current-app-initial/home-ambient-suggestions-current-runtime";
+import {
+  welcomeV2RoleStateAtom as appInitialAppMainOnboardingPageSelectWorkspacePageE,
+  onboardingMailProviderDebugOverrideSignal as appInitialAppMainOnboardingPageSelectWorkspacePageM,
+  homepageOnboardingTilesDebugOverrideAtom as appInitialAppMainOnboardingPageSelectWorkspacePageUnderscore,
+  onboardingPluginChecklistActiveAtom as appInitialAppMainOnboardingPageSelectWorkspacePageB,
+  initOnboardingStateChunk as appInitialAppMainOnboardingPageSelectWorkspacePageJ,
+  pluginSuggestionsV2EnabledAtCompletionAtom as appInitialAppMainOnboardingPageSelectWorkspacePageX,
+} from "../../runtime/current-app-initial/onboarding-select-workspace-current-runtime";
+import {
+  initOnboardingWelcomePromptsChunk as onboardingPluginSuggestionsA,
+  getOnboardingRolePromptSuggestions as onboardingPluginSuggestionsI,
+  initOnboardingPluginSuggestionCardsChunk as onboardingPluginSuggestionsN,
+  CONNECT_APPS_ROW_MESSAGE as onboardingPluginSuggestionsR,
+  buildOnboardingPluginSuggestionCards as onboardingPluginSuggestionsT,
+} from "../../onboarding/onboarding-plugin-suggestions/index";
+import {
+  initAppgenPlugIconChunk as appInitialAppMainWorktreeInitV2PageAppgenPublicationTermsRouteRemoteConversatiCldi24d6N,
+  AppgenPlugIcon as appInitialAppMainWorktreeInitV2PageAppgenPublicationTermsRouteRemoteConversatiCldi24d6T,
+} from "../../icons/appgen-plug-icon";
+import {
+  mapPluginNameForMailProvider as appInitialAppMainOnboardingPagePendingRequestItemPanelHomeAmbientSuggestionsContentI,
+  getEmailDomain as appInitialAppMainOnboardingPagePendingRequestItemPanelHomeAmbientSuggestionsContentN,
+  initOnboardingMailProviderChunk as appInitialAppMainOnboardingPagePendingRequestItemPanelHomeAmbientSuggestionsContentO,
+  resolveMailProviderForEmailDomain as appInitialAppMainOnboardingPagePendingRequestItemPanelHomeAmbientSuggestionsContentR,
+  emailDomainMailProviderQuery as appInitialAppMainOnboardingPagePendingRequestItemPanelHomeAmbientSuggestionsContentT,
+} from "../../onboarding/onboarding-mail-provider";
+import {
+  initAmbientSuggestionsConnectedAppsConsentChunk as ambientSuggestionsConnectedAppsConsentI,
+  hasDismissedAmbientSuggestionsConnectAppsRowSignal as ambientSuggestionsConnectedAppsConsentN,
+} from "../../composer/ambient-suggestions-connected-apps-consent";
+import {
+  initHomeRowLayoutChunk as homeRowLayoutI,
+  HomeRowIcon as homeRowLayoutN,
+  HomeRowLabel as homeRowLayoutR,
+  HomeRowContent as homeRowLayoutT,
+} from "../../ui/home-row-layout";
+import {
+  initInfoCircleIconChunk as appInitialAppMainWorktreeInitV2PageAppgenSettingsPagePageAppgenPageRemoteConDi269h6jB,
+  InfoCircleIcon as appInitialAppMainWorktreeInitV2PageAppgenSettingsPagePageAppgenPageRemoteConDi269h6jY,
+} from "../../runtime/renderer-error-boundary-runtime";
+import {
+  initAmbientSuggestionsStateChunk as homeOnboardingAssistantTutorialCardA,
+  updateAmbientSuggestionStatusInCache as homeOnboardingAssistantTutorialCardD,
+  setAmbientSuggestionDefaultStatus as homeOnboardingAssistantTutorialCardF,
+  activeAmbientSuggestionIdSignal as homeOnboardingAssistantTutorialCardI,
+  ambientSuggestionDefaultStatusIdsSignal as homeOnboardingAssistantTutorialCardL,
+  ambientSuggestionsLoadedSignal as homeOnboardingAssistantTutorialCardO,
+  pendingGeneratedAmbientSuggestionsSignal as homeOnboardingAssistantTutorialCardP,
+  initHomeOnboardingAssistantTutorialCardChunk as homeOnboardingAssistantTutorialCardR,
+  ambientSuggestionsRefreshQuery as homeOnboardingAssistantTutorialCardS,
+  SetupCodexOnboardingSuggestionCard as homeOnboardingAssistantTutorialCardT,
+  ambientSuggestionDefaultStatusesSignal as homeOnboardingAssistantTutorialCardU,
+} from "../../app-shell/home-ambient-suggestions/setup-codex/index";
+import { HomeAmbientBodyModule } from "./body";
+
+function usePrefetchAmbientSuggestions(homeAmbientOperand15) {
+  let {
+      domain: domain,
+      enabled: enabled,
+      hostId: hostId,
+      projectRoot: projectRoot,
+      routeEntryKey: routeEntryKey
+    } = homeAmbientOperand15,
+    homeAmbientBinding229 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wKo(appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wE),
+    homeAmbientBinding230 = () => {
+      enabled && projectRoot != null && homeAmbientBinding229.query.fetch(homeOnboardingAssistantTutorialCardA, {
+        domain: domain,
+        hostId: hostId,
+        projectRoot: projectRoot
+      }).catch(ignoreAmbientSuggestionPrefetchError);
+    };
+  let homeAmbientBinding231;
+  homeAmbientBinding231 = [domain, enabled, hostId, projectRoot, routeEntryKey, homeAmbientBinding229], (0, homeAmbientBinding38.useEffect)(homeAmbientBinding230, homeAmbientBinding231);
+}
+function ignoreAmbientSuggestionPrefetchError() {}
+function usePrefetchAmbientSuggestionRefresh(homeAmbientOperand14) {
+  let {
+      domain: domain,
+      enabled: enabled,
+      hostId: hostId,
+      plan: plan,
+      projectRoot: projectRoot
+    } = homeAmbientOperand14,
+    homeAmbientBinding223 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wKo(appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wE),
+    homeAmbientBinding224 = () => {
+      enabled && projectRoot != null && homeAmbientBinding223.query.fetch(homeOnboardingAssistantTutorialCardS, {
+        domain: domain,
+        hostId: hostId,
+        plan: plan,
+        projectRoot: projectRoot
+      }).catch(ignoreAmbientSuggestionRefreshError);
+    };
+  let homeAmbientBinding225 = (0, homeAmbientBinding38.useEffectEvent)(homeAmbientBinding224),
+    homeAmbientBinding226 = () => {
+      if (window.electronBridge?.sendMessageFromView != null) return () => {
+        globalThis.setTimeout(homeAmbientBinding225, 0);
+      };
+    };
+  let homeAmbientBinding227;
+  homeAmbientBinding227 = [], (0, homeAmbientBinding38.useEffect)(homeAmbientBinding226, homeAmbientBinding227);
+}
+function ignoreAmbientSuggestionRefreshError() {}
+var homeAmbientBinding37,
+  homeAmbientBinding38,
+  homeAmbientBinding39 = rolldownRuntimeN(() => {
+    homeAmbientBinding37 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGc(), appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wVo(), homeAmbientBinding38 = rolldownRuntimeS(appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wC(), 1), appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wD(), homeOnboardingAssistantTutorialCardL();
+  });
+function HomeAmbientSuggestionsContent(homeAmbientOperand10) {
+  let {
+      generatedSuggestionsEnabled: generatedSuggestionsEnabled,
+      hostId: hostId,
+      onLocalConversationCreated: onLocalConversationCreated,
+      plan: plan,
+      projectRoot: projectRoot,
+      routeEntryKey: routeEntryKey
+    } = homeAmbientOperand10,
+    {
+      modelSettings: modelSettings
+    } = appInitialAppMainOnboardingPageKp(null),
+    homeAmbientBinding186 = {
+      hostId: hostId
+    };
+  let {
+      data: data
+    } = appInitialAppMainOnboardingPagePp(homeAmbientBinding186),
+    homeAmbientBinding187,
+    homeAmbientBinding188;
+  homeAmbientBinding187 = data?.models.find(homeAmbientOperand49 => homeAmbientOperand49.model === modelSettings.model)?.displayName ?? null, homeAmbientBinding188 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wVa({
+    selectedModel: modelSettings.model,
+    selectedModelDisplayName: homeAmbientBinding187
+  });
+  let homeAmbientBinding189 = homeAmbientBinding188,
+    homeAmbientBinding190;
+  homeAmbientBinding190 = {
+    domain: homeAmbientBinding189,
+    enabled: generatedSuggestionsEnabled,
+    hostId: hostId,
+    projectRoot: projectRoot,
+    routeEntryKey: routeEntryKey
+  }, usePrefetchAmbientSuggestions(homeAmbientBinding190);
+  let homeAmbientBinding191;
+  homeAmbientBinding191 = {
+    domain: homeAmbientBinding189,
+    enabled: generatedSuggestionsEnabled,
+    hostId: hostId,
+    plan: plan,
+    projectRoot: projectRoot
+  }, usePrefetchAmbientSuggestionRefresh(homeAmbientBinding191);
+  return React.createElement(HomeAmbientBodyModule.HomeAmbientSuggestionsBody, {
+    domain: homeAmbientBinding189,
+    generatedSuggestionsEnabled: generatedSuggestionsEnabled,
+    hostId: hostId,
+    onLocalConversationCreated: onLocalConversationCreated,
+    projectRoot: projectRoot,
+    selectedModel: modelSettings.model,
+    selectedModelDisplayName: homeAmbientBinding187
+  });
+}
+var homeAmbientBinding40, homeAmbientBinding41;
+rolldownRuntimeN(() => {
+  homeAmbientBinding40 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wGc(), appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wO(), appInitialAppMainOnboardingPageDp(), appInitialAppMainOnboardingPageNp(), HomeAmbientBodyModule.homeAmbientBinding36(), homeAmbientBinding39(), homeAmbientBinding41 = appInitialAppMainRemoteConversationPageHotkeyWindowThreadPageAutomationsPageThBnlvjk3wLc();
+})();
+export { HomeAmbientSuggestionsContent };

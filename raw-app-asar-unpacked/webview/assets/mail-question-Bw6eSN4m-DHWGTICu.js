@@ -1,0 +1,3 @@
+import { n as e, t } from "./mail-question-Bw6eSN4m-BWfWjvYe.js";
+t();
+export { e as default };

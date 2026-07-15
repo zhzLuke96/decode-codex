@@ -1,0 +1,15 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import { n as t, t as n } from "./createLucideIcon-BrIFp4GW-lBs_zH0L.js";
+var r,
+  i = e(() => {
+    (t(),
+      (r = n(`SquareRadical`, [
+        [`path`, { d: `M7 12h2l2 5 2-10h4`, key: `1fxv6h` }],
+        [
+          `rect`,
+          { x: `3`, y: `3`, width: `18`, height: `18`, rx: `2`, key: `h1oib` },
+        ],
+      ])));
+  });
+export { r as n, i as t };
+//# sourceMappingURL=square-radical-SsX79xVr-zCRC0r8N.js.map

@@ -1,0 +1,32 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import {
+  I2 as t,
+  k2 as n,
+} from "./app-initial~app-main~onboarding-page~hotkey-window-thread-page~quick-chat-window-page~chatg~gwqc41kz-Bj9ubaFn.js";
+import {
+  n as r,
+  t as i,
+} from "./app-initial~app-main~appgen-publication-terms-route-D76IBRvC.js";
+function a(e) {
+  let t = (0, o.c)(3),
+    { children: n } = e,
+    r;
+  t[0] === Symbol.for(`react.memo_cache_sentinel`)
+    ? ((r = (0, s.jsx)(i, { showWhenUnseen: !0 })), (t[0] = r))
+    : (r = t[0]);
+  let a;
+  return (
+    t[1] === n
+      ? (a = t[2])
+      : ((a = (0, s.jsxs)(s.Fragment, { children: [n, r] })),
+        (t[1] = n),
+        (t[2] = a)),
+    a
+  );
+}
+var o, s;
+e(() => {
+  ((o = t()), r(), (s = n()));
+})();
+export { a as AppgenPublicationTermsRoute };
+//# sourceMappingURL=appgen-publication-terms-route-Dg6mi4vb.js.map

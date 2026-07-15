@@ -1,0 +1,26 @@
+// Restored from ref/webview/assets/use-composer-controller-Bo8TAx0p.js
+// Composer-facing wrapper around the vendored ProseMirror runtime chunk.
+export {
+  _useComposerControllerS as AllSelection,
+  useComposerControllerA as PROSEMIRROR_DISPATCH_TRANSACTION_EVENT,
+  useComposerControllerB as ReplaceError,
+  useComposerControllerC as EditorState,
+  useComposerControllerD as PluginKey,
+  useComposerControllerF as Selection,
+  useComposerControllerG as DOMParser,
+  useComposerControllerH as dropPoint,
+  useComposerControllerI as subscribeProseMirrorDispatchTransactions,
+  useComposerControllerL as NodeSelection,
+  useComposerControllerM as Mapping,
+  useComposerControllerN as useComposerControllerSelector,
+  useComposerControllerO as createTransactionEventPlugin,
+  useComposerControllerP as TextSelection,
+  useComposerControllerR as ComposerControllerContext,
+  useComposerControllerS as Slice,
+  useComposerControllerT as useComposerController,
+  useComposerControllerU as Plugin,
+  useComposerControllerUnderscore as DOMSerializer,
+  useComposerControllerV as Fragment,
+  useComposerControllerX as Schema,
+  useComposerControllerY as Mark,
+} from "../vendor/prosemirror-composer-runtime";

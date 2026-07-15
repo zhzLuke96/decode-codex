@@ -1,0 +1,10 @@
+import { n as e } from "./rolldown-runtime-Czos8NxU.js";
+import {
+  n as t,
+  t as n,
+} from "./circle-arrow-out-down-right-B96UMoFA-D2-0p9IL.js";
+e(() => {
+  n();
+})();
+export { t as default };
+//# sourceMappingURL=arrow-down-right-from-circle-zm5KGn8j-BIrOs0qn.js.map
